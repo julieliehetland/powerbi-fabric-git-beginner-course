@@ -1,0 +1,119 @@
+table 'Table 1 (Nøkkeltall info page)'
+	lineageTag: 21979141-0ff6-4967-9c53-e99819d61f9a
+
+	column Nøkkeltall-navn
+		dataType: string
+		lineageTag: 4105a0e5-de67-4843-a85d-6b6ed9d405e5
+		summarizeBy: none
+		sourceColumn: Nøkkeltall-navn
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nøkkeltall-forkortelse
+		dataType: string
+		lineageTag: a5250100-db50-4e00-919c-dcc86c150a86
+		summarizeBy: none
+		sourceColumn: Nøkkeltall-forkortelse
+
+		annotation SummarizationSetBy = Automatic
+
+	column SortKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d93fa65f-2320-4303-a967-d795b764ea01
+		summarizeBy: count
+		sourceColumn: SortKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nøkkeltall-navn + forkortelse'
+		dataType: string
+		lineageTag: d8b4f271-b057-48e2-9bb2-f98b89681cd2
+		summarizeBy: none
+		sourceColumn: Nøkkeltall-navn + forkortelse
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kategori
+		dataType: string
+		lineageTag: fec377b9-cd07-41c8-bf64-d9d79913f001
+		summarizeBy: none
+		sourceColumn: Kategori
+
+		annotation SummarizationSetBy = Automatic
+
+	column RapportVisning
+		dataType: string
+		lineageTag: 24ba29ff-cd14-4072-ae5d-a374b6970a81
+		summarizeBy: none
+		sourceColumn: RapportVisning
+
+		annotation SummarizationSetBy = Automatic
+
+	column Measure
+		dataType: string
+		lineageTag: d39a03b8-e08d-4db6-80ae-ff8c0b8675a9
+		summarizeBy: none
+		sourceColumn: Measure
+
+		annotation SummarizationSetBy = Automatic
+
+	column Format
+		dataType: string
+		lineageTag: 8a38b26c-001e-4dd0-9da9-d6ed79626aae
+		summarizeBy: none
+		sourceColumn: Format
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lav fargeverdi <'
+		dataType: double
+		lineageTag: 75529238-b085-4d40-8a8a-c01a51bda3ae
+		summarizeBy: sum
+		sourceColumn: Lav fargeverdi <
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Høy fargeverdi >='
+		dataType: double
+		lineageTag: 522a49e3-72a5-46bb-a990-e5110db91e6d
+		summarizeBy: sum
+		sourceColumn: Høy fargeverdi >=
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Format-type
+		dataType: string
+		lineageTag: ddae7afd-b370-4177-8ada-7005bf33c0ac
+		summarizeBy: none
+		sourceColumn: Format-type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Beskrivelse
+		dataType: string
+		lineageTag: c2ed491d-e98c-4e94-a857-31071130cf73
+		summarizeBy: none
+		sourceColumn: Beskrivelse
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Table 1 (Nøkkeltall info page)' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\julie.lie-hetland\Bouvet Norge AS\Bouvet Pulsen utvikling - General\ManuellerTabellerPulsen\Nøkkeltall\Nøkkeltall.xlsx"), null, false),
+				    #"Nøkkeltall info page_sheet" = Source{[Item="Nøkkeltall info page",Kind="Sheet"]}[Data],
+				    FilterNullAndWhitespace = each List.Select(_, each _ <> null and (not (_ is text) or Text.Trim(_) <> "")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Nøkkeltall info page_sheet", List.Select(Table.ColumnNames(#"Nøkkeltall info page_sheet"), each try not List.IsEmpty(FilterNullAndWhitespace(Table.Column(#"Nøkkeltall info page_sheet", _))) otherwise true)),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Other Columns", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Nøkkeltall-navn", type text}, {"Nøkkeltall-forkortelse", type text}, {"SortKey", Int64.Type}, {"Nøkkeltall-navn + forkortelse", type text}, {"Kategori", type text}, {"RapportVisning", type text}, {"Measure", type text}, {"Format", type any}, {"Lav fargeverdi <", type number}, {"Høy fargeverdi >=", type number}, {"Format-type", type text}, {"Beskrivelse", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

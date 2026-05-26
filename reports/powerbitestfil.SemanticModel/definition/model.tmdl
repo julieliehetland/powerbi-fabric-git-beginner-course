@@ -10,5 +10,9 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_ProTooling = ["DevMode"]
 
+annotation PBI_QueryOrder = ["Table 1 (Nøkkeltall info page)"]
+
+ref table 'Table 1 (Nøkkeltall info page)'
+
 ref cultureInfo nb-NO
 
