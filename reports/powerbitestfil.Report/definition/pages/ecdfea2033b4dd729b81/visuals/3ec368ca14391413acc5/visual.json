@@ -1,0 +1,55 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "3ec368ca14391413acc5",
+  "position": {
+    "x": 346.1758691206544,
+    "y": 85.725971370143156,
+    "z": 0,
+    "height": 448.91615541922289,
+    "width": 299.71370143149284
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Table 1 (Nøkkeltall info page)"
+                    }
+                  },
+                  "Property": "Beskrivelse"
+                }
+              },
+              "queryRef": "Table 1 (Nøkkeltall info page).Beskrivelse",
+              "nativeQueryRef": "Beskrivelse"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "dd2902c6cb4c3b54ec01",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Table 1 (Nøkkeltall info page)"
+              }
+            },
+            "Property": "Beskrivelse"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
+  }
+}

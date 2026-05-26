@@ -1,0 +1,18 @@
+model Model
+	culture: nb-NO
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: nb-NO
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["Table 1 (Nøkkeltall info page)"]
+
+ref table 'Table 1 (Nøkkeltall info page)'
+
+ref cultureInfo nb-NO
+
