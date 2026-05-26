@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "powerbitestfil"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "544d2622-6729-4c7b-bc4a-65419e8e5867"
+  }
+}
